@@ -45,6 +45,18 @@ namespace Isis {
       void TearDown() override;
   };
 
+  class LineScannerCube : public TempTestingFiles {
+    protected:
+      Cube *testCube;
+      Cube *projTestCube;
+
+      Pvl label;
+      Pvl projLabel;
+      json isd;
+
+      void SetUp() override;
+      void TearDown() override;
+  };
 
   class ThreeImageNetwork : public TempTestingFiles {
     protected:
