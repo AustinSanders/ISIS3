@@ -1,3 +1,5 @@
+#include <QTextStream>
+
 #include "Fixtures.h"
 #include "LineManager.h"
 #include "SpecialPixel.h"
@@ -24,7 +26,6 @@ namespace Isis {
       }
       testCube->write(line);
     }
-
   }
 
   void SmallCube::TearDown() {
@@ -36,6 +37,37 @@ namespace Isis {
       delete testCube;
     }
   }
+
+
+  void LargeCube::SetUp() {
+    TempTestingFiles::SetUp();
+
+    testCube = new Cube();
+    testCube->setDimensions(1000, 1000, 10);
+    testCube->create(tempDir.path() + "/large.cub");
+
+    LineManager line(*testCube);
+    double pixelValue = 0.0;
+    for(line.begin(); !line.end(); line++) {
+      for(int i = 0; i < line.size(); i++) {
+        line[i] = pixelValue;
+      }
+
+      pixelValue++;
+      testCube->write(line);
+    }
+  }
+
+  void LargeCube::TearDown() {
+    if (testCube->isOpen()) {
+      testCube->close();
+    }
+
+    if (testCube) {
+      delete testCube;
+    }
+  }
+
 
   void SpecialSmallCube::SetUp() {
     TempTestingFiles::SetUp();
@@ -109,11 +141,11 @@ namespace Isis {
     if (testCube->isOpen()) {
       testCube->close();
     }
-
+    
     if (projTestCube->isOpen()) {
       projTestCube->close();
     }
-
+    
     delete testCube;
     delete projTestCube;
   }
@@ -221,6 +253,7 @@ namespace Isis {
     delete threeImageOverlapFile;
     delete twoImageOverlapFile;
   }
+  
 
   void MroCube::setInstrument(QString ikid, QString instrumentId, QString spacecraftName) {
     PvlGroup &kernels = testCube->label()->findObject("IsisCube").findGroup("Kernels");
@@ -232,12 +265,12 @@ namespace Isis {
         SpacecraftName              = "MARS RECONNAISSANCE ORBITER"
         InstrumentId                = HIRISE
         TargetName                  = Mars
-        StartTime                   = 2006-11-08T04:49:13.968
-        StopTime                    = 2006-11-08T04:49:17.771
-        ObservationStartCount       = 847428572:42722
-        SpacecraftClockStartCount   = 847428572:52459
-        SpacecraftClockStopCount    = 847428576:39516
-        ReadoutStartCount           = 847428727:63203
+        StartTime                   = 2008-05-17T09:37:24.7300819
+        StopTime                    = 2008-05-17T09:37:31.0666673
+        ObservationStartCount       = 895484264:44383
+        SpacecraftClockStartCount   = 895484264:57342
+        SpacecraftClockStopCount    = 895484272:12777
+        ReadoutStartCount           = 895484659:31935
         CalibrationStartTime        = 2006-11-08T04:49:13.952
         CalibrationStartCount       = 847428572:51413
         AnalogPowerStartTime        = 2006-11-08T04:48:34.478
@@ -310,7 +343,6 @@ namespace Isis {
     PvlGroup newInstGroup; 
     iss >> newInstGroup; 
     
-
     newInstGroup.findKeyword("InstrumentId").setValue(instrumentId);
     newInstGroup.findKeyword("SpacecraftName").setValue(spacecraftName);
 
@@ -347,11 +379,32 @@ namespace Isis {
         testCube->write(line);
     }
     testCube->reopen("rw");
- 
+  
     // need to remove old camera pointer 
     delete testCube;
     // This is now a MRO cube
+
     testCube = new Cube(fileName, "rw");
+
+    // create a jitter file 
+    QString jitter = R"(# Sample                 Line                   ET
+-0.18     -0.07     264289109.96933
+-0.11     -0.04     264289109.97
+-0.05     -0.02     264289109.98
+1.5     0.6     264289110.06
+    )"; 
+    
+    jitterPath = tempDir.path() + "/jitter.txt"; 
+    QFile jitterFile(jitterPath); 
+    
+    if (jitterFile.open(QIODevice::WriteOnly)) {
+      QTextStream out(&jitterFile); 
+      out << jitter;
+      jitterFile.close(); 
+    }
+    else { 
+      FAIL() << "Failed to create Jitter file" << std::endl;
+    }
   }
 
 

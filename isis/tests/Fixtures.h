@@ -51,6 +51,16 @@ namespace Isis {
       void TearDown() override;
   };
 
+
+  class LargeCube : public TempTestingFiles {
+    protected:
+      Cube *testCube;
+
+      void SetUp() override;
+      void TearDown() override;
+  };
+
+
   class SpecialSmallCube : public TempTestingFiles {
     protected:
       Cube *testCube;
@@ -113,6 +123,11 @@ namespace Isis {
 
   class MroCube : public DefaultCube {
     protected:
+      QString ckPath = "data/mroKernels/mroCK.bc";
+      QString sclkPath = "data/mroKernels/mroSCLK.tsc";
+      QString lskPath = "data/mroKernels/mroLSK.tls";
+      QString jitterPath; 
+
       void setInstrument(QString ikid, QString instrumentId, QString spacecraftName); 
   };
 
