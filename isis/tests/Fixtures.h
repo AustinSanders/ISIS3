@@ -11,14 +11,20 @@
 
 #include <nlohmann/json.hpp>
 
+#include "csm/csm.h"
+#include "csm/Ellipsoid.h"
+
 #include "Cube.h"
 #include "IException.h"
+#include "OriginalLabel.h"
 #include "Pvl.h"
 #include "PvlGroup.h"
 #include "PvlObject.h"
 #include "ImagePolygon.h"
 #include "PolygonTools.h"
 #include "Blob.h"
+#include "MockCsmPlugin.h"
+#include "Mocks.h"
 #include "ControlNet.h"
 #include "FileList.h"
 #include "FileName.h"
@@ -69,6 +75,16 @@ namespace Isis {
       void TearDown() override;
   };
 
+  class SmallGapCube : public TempTestingFiles {
+    protected:
+      Cube *horzCube;
+      Cube *vertCube;
+      Cube *bandCube;
+
+      void SetUp() override;
+      void TearDown() override;
+  };
+
 
   class DefaultCube : public TempTestingFiles {
     protected:
@@ -81,6 +97,7 @@ namespace Isis {
 
       void SetUp() override;
       void TearDown() override;
+      void resizeCube(int samples, int lines, int bands);
   };
 
   class LineScannerCube : public TempTestingFiles {
@@ -96,14 +113,35 @@ namespace Isis {
       void TearDown() override;
   };
 
+  class OffBodyCube : public TempTestingFiles {
+    protected:
+      Cube *testCube;
+
+      void SetUp() override;
+      void TearDown() override;
+  };
+
+  class MiniRFCube : public TempTestingFiles {
+    protected:
+      Cube *testCube;
+
+      void SetUp() override;
+      void TearDown() override;
+  };
+
   class ThreeImageNetwork : public TempTestingFiles {
     protected:
 
       ControlNet *network;
+      QString networkFile;
 
       Cube *cube1;
       Cube *cube2;
       Cube *cube3;
+
+      Cube *cube1map;
+      Cube *cube2map;
+      Cube *cube3map;
 
       FileName *isdPath1;
       FileName *isdPath2;
@@ -114,23 +152,177 @@ namespace Isis {
 
       FileList *cubeList;
       QString cubeListFile;
+      QString twoCubeListFile;
 
       std::vector<std::vector<double>> coords;
+
+      void SetUp() override;
+      void AddFeatures();
+      void TearDown() override;
+  };
+
+  class ObservationPair : public TempTestingFiles {
+    protected:
+
+      Cube *cubeL;
+      Cube *cubeR;
+
+      QString cubeLPath;
+      QString cubeRPath;
+
+      FileName *isdPathL;
+      FileName *isdPathR;
+
+      FileList *cubeList;
+      QString cubeListFile;
+
+      ControlNet *network;
+      QString cnetPath;
 
       void SetUp() override;
       void TearDown() override;
   };
 
-  class MroCube : public DefaultCube {
+  class ApolloNetwork : public TempTestingFiles {
+    protected:
+      QVector<FileName> isdFiles;
+      QVector<FileName> labelFiles;
+      QVector<Cube*> cubes;
+
+      FileList *cubeList;
+      QString cubeListFile;
+
+      ControlNet *network;
+      QString controlNetPath;
+
+      void SetUp() override;
+      void TearDown() override;
+  };
+
+  class DemCube : public DefaultCube {
+    protected:
+      Cube *demCube;
+
+      void SetUp() override;
+      void TearDown() override;
+  };
+
+
+  class MroCtxCube : public DefaultCube {
+    protected:
+      std::unique_ptr<Cube> testCube;
+
+      void SetUp() override;
+      void TearDown() override;
+  };
+
+  class GalileoSsiCube : public DefaultCube {
+    protected:
+      void SetUp() override;
+      void TearDown() override;
+  };
+
+  class MgsMocCube : public DefaultCube {
+    protected:
+      std::unique_ptr<Cube> testCube;
+
+      void SetUp() override;
+      void TearDown() override;
+  };
+
+
+  class MroHiriseCube : public DefaultCube {
     protected:
       QString ckPath = "data/mroKernels/mroCK.bc";
       QString sclkPath = "data/mroKernels/mroSCLK.tsc";
       QString lskPath = "data/mroKernels/mroLSK.tls";
-      QString jitterPath; 
+      Cube dejitteredCube;
+      QString jitterPath;
 
-      void setInstrument(QString ikid, QString instrumentId, QString spacecraftName); 
+      void SetUp() override;
+      void setInstrument(QString ikid, QString instrumentId, QString spacecraftName);
   };
 
+  class NewHorizonsCube : public DefaultCube {
+    protected:
+      void setInstrument(QString ikid, QString instrumentId, QString spacecraftName);
+  };
+
+
+  class OsirisRexCube : public DefaultCube {
+    protected:
+      void setInstrument(QString ikid, QString instrumentId);
+  };
+
+
+  class ApolloCube : public LargeCube {
+    protected:
+      void SetUp() override;
+  };
+
+  class RingsCube : public TempTestingFiles {
+    protected:
+
+      // pixtures of Saturn's rings
+      Cube *ring1;
+      Cube *ring2;
+      FileList cubeFileList;
+      QString cubeListPath;
+
+      void SetUp() override;
+  };
+
+  class CSMCubeFixture : public SmallCube {
+  protected:
+    QString filename;
+    MockRasterGM mockModel;
+
+    void SetUp() override;
+};
+
+
+class CSMCameraFixture : public CSMCubeFixture {
+  protected:
+    Camera *testCam;
+
+    void SetUp() override;
+};
+
+
+class CSMCameraSetFixture : public CSMCameraFixture {
+  protected:
+    csm::Ellipsoid wgs84;
+    csm::ImageCoord imagePt;
+    csm::EcefCoord groundPt;
+    csm::EcefLocus imageLocus;
+
+    void SetUp() override;
+};
+
+
+class CSMCameraDemFixture : public CSMCubeFixture {
+  protected:
+    Camera *testCam;
+    double demRadius;
+
+    void SetUp() override;
+};
+
+class HistoryBlob : public TempTestingFiles {
+  protected:
+    Blob historyBlob;
+    PvlObject historyPvl;
+
+    void SetUp() override;
+};
+
+class NullPixelCube : public TempTestingFiles {
+  protected:
+    Cube *testCube;
+
+    void SetUp() override;
+    void TearDown() override;
+};
 }
 
 #endif
