@@ -3,9 +3,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Latest Tag
+      - name: 'Get Previous tag'
         id: get_latest_tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
       - name: Test
         run: |
           echo $RELEASE_VERSION
