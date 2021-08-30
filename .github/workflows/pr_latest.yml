@@ -3,11 +3,6 @@ on:
   pull_request:
     types: [closed]
 jobs:
-  show_label_name:
-    runs-on: ubuntu-latest
-    steps:
-      - id: echo
-        run: echo '${{github.event.pull_request.labels.*.name}}'
   release_pull_request:
     if: ${{github.event.pull_request.merged == true}} && contains(github.event.pull_request.labels.*.name, 'bug') && ${{github.event.pull_request.base_ref == 'dev'}}
     runs-on: ubuntu-latest
@@ -22,7 +17,7 @@ jobs:
       uses: "WyriHaximus/github-action-get-previous-tag@v1"
     - id: get_short_version
       run: |
-        major_minor=$(echo ${{steps.get_latest_tag.outputs.tag}} | cut -c1-5)
+        major_minor=$(echo ${{steps.get_latest_tag.outputs.tag}} | cut -d '.' -f 1,2)
         echo "::set-output name=major_minor::$major_minor"
     - run: echo "${{steps.get_short_version.outputs.id}}"
     - name: Create PR to branch
