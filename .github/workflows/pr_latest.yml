@@ -20,10 +20,15 @@ jobs:
     - name: 'Get Previous tag'
       id: get_latest_tag
       uses: "WyriHaximus/github-action-get-previous-tag@v1"
+    - id: get_short_version
+      run: |
+        major_minor=$(echo ${{steps.get_latest_tag.outputs.tag}} | cut -c1-5)
+        echo "::set-output name=major_minor::$major_minor"
+    - run: echo "${{steps.get_short_version.outputs.id}}"
     - name: Create PR to branch
       uses: gorillio/github-action-cherry-pick@master
       with:
-        pr_branch: ${{steps.get_latest_tag.outputs.tag}}
+        pr_branch: ${{steps.get_short_version.major_minor}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DRY_RUN: false
