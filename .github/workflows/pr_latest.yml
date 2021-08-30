@@ -4,6 +4,11 @@ on:
     branches:
       - dev
 jobs:
+  show_label_name:
+    runs-on: ubuntu-latest
+    steps:
+      - id: echo
+        run: echo "${{github.event.label.name}}"
   release_pull_request:
     if: ${{ github.event.label.name == 'bugfix' }}
     runs-on: ubuntu-latest
