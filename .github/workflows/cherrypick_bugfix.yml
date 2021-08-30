@@ -5,7 +5,7 @@ on:
       [ closed ]
 jobs:
   release_pull_request:
-    if: contains(github.event.pull_request.events.*.name, 'bug') && github.event.pull_request.merged == 'true' && github.event.pull_request.base_ref == 'dev'
+    if: contains(github.event.pull_request.events.*.name, 'bug') && ${{github.event.pull_request.merged}} == 'true' && ${{github.event.pull_request.base.ref}} == 'dev'
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
