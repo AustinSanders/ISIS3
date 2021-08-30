@@ -10,7 +10,7 @@ jobs:
       - id: echo
         run: echo "${{github.event.pull_request.labels}}"
   release_pull_request:
-    if: contains(github.event.pull_request.labels.*.name, 'bugfix')
+    if: contains(github.event.pull_request.labels.*.name, 'Bug')
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
