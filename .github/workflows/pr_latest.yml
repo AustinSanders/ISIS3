@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: echo
-        run: echo '${{github.event.pull_request.labels}}'
+        run: echo '${{github.event.pull_request.labels.*.name}}'
   release_pull_request:
     if: contains(github.event.pull_request.labels.*.name, 'bug')
     runs-on: ubuntu-latest
