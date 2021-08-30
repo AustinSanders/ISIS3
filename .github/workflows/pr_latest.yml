@@ -1,11 +1,11 @@
 
 name: PR for release branch
 on:
-  pull_request:
-    types: [closed]
+  push:
+    branches:
+      - dev
 jobs:
   release_pull_request:
-    if: ${{github.event.pull_request.merged == true}} && contains(github.event.pull_request.labels.*.name, 'bug') && ${{github.event.pull_request.base_ref == 'dev'}}
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
