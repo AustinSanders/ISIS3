@@ -13,11 +13,11 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         labels: '["bug"]'
-    - id: print
-      run: echo ${{ steps.check_pr_labels.outputs.results }}
+    - name: See result
+      run: echo "${{ steps.check_pr_labels.outputs.result }}"
   release_pull_request:
     needs: check_labels
-    if: always() && needs.check_labels.outputs.results
+    if: always() && needs.check_labels.outputs.result
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
