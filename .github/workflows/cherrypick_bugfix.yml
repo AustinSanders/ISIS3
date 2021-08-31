@@ -15,7 +15,7 @@ jobs:
         labels: '["bug"]'
   release_pull_request:
     needs: check_labels
-    if: ${{needs.check_labels.output.results}} == 'true'
+    if: needs.check_labels.output.results
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
@@ -32,7 +32,7 @@ jobs:
         echo "::set-output name=major_minor::$major_minor"
     - run: echo "${{steps.get_short_version.outputs.id}}"
     - name: Create PR to branch
-      uses: gorillio/github-action-cherry-pick@master
+      uses: adamtharani/github-action-cherry-pick@master
       with:
         pr_branch: ${{steps.get_short_version.outputs.major_minor}}
       env:
