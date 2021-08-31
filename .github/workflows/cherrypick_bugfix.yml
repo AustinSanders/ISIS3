@@ -9,7 +9,7 @@ jobs:
     name: Check PR labels action step
     steps:
     - id: check_pr_labels
-      uses: shioyang/check-pr-labels-on-push-action@v1.0.3
+      uses: 3pointer/check-pr-labels-on-push-action@v1.0.3
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         labels: '["bug"]'
