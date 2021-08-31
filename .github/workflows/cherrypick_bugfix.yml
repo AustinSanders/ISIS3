@@ -17,7 +17,6 @@ jobs:
       run: echo "${{ steps.check_pr_labels.outputs.result }}"
   release_pull_request:
     needs: check_labels
-    if: always() && contains(needs.check_labels.*.result, 'true')
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
