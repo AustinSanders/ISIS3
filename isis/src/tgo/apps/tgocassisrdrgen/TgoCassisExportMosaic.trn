@@ -20,7 +20,7 @@ Group = LidVid
   Debug
   InputKey        = LID
   InputPosition   = (IsisCube, Archive)
-  OutputName      = lidvid_reference
+  OutputName      = lid_reference
   OutputPosition  = (Product_Observational, Reference_List, Internal_Reference)
   Translation     = (*, *)
 End_Group
@@ -202,13 +202,14 @@ End_Group
 
 # Export Footprint Coordinates 
 
-Group = Corner1Lattiude
+Group = Corner1Latitude
   Auto
   Optional
   InputKey        = Corner1Latitude
   InputPosition   = (IsisCube, Archive)
   OutputSiblings =  ("geom:reference_pixel_location|Lower Left Corner")
   OutputName      = geom:pixel_latitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept)
   Translation     = (*, *)
 End_Group
@@ -219,16 +220,18 @@ Group = Corner1Longitude
   InputKey        = Corner1Longitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_longitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept)
   Translation     = (*, *)
 End_Group
 
-Group = Corner2Lattiude
+Group = Corner2Latitude
   Auto
   Optional
   InputKey        = Corner2Latitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_latitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, new@geom:Pixel_Intercept2)
   OutputSiblings = ("geom:reference_pixel_location|Lower Right Corner")
   Translation     = (*, *)
@@ -240,16 +243,18 @@ Group = Corner2Longitude
   InputKey        = Corner2Longitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_longitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept2)
   Translation     = (*, *)
 End_Group
 
-Group = Corner3Lattiude
+Group = Corner3Latitude
   Auto
   Optional
   InputKey        = Corner3Latitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_latitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, new@geom:Pixel_Intercept3)
   OutputSiblings  = ("geom:reference_pixel_location|Upper Left Corner")
   Translation     = (*, *)
@@ -261,16 +266,18 @@ Group = Corner3Longitude
   InputKey        = Corner3Longitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_longitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept3)
   Translation     = (*, *)
 End_Group
 
-Group = Corner4Lattiude
+Group = Corner4Latitude
   Auto
   Optional
   InputKey        = Corner4Latitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_latitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, new@geom:Pixel_Intercept4)
   OutputSiblings  = ("geom:reference_pixel_location|Upper Right Corner")
   Translation     = (*, *)
@@ -282,6 +289,7 @@ Group = Corner4Longitude
   InputKey        = Corner4Longitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_longitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept4)
   Translation     = (*, *)
 End_Group
@@ -382,15 +390,36 @@ Group = Comment
 End_Group
 
 # New Mission_Area exports
-Group = MissionPhase
+Group = MissionPhaseName
   Auto
   Optional
   InputKey        = MissionPhase
   InputPosition   = (IsisCube, Archive)
   OutputName      = psa:mission_phase_name
   OutputPosition  = (Product_Observational, Observation_Area, Mission_Area, psa:Mission_Information)
+  Translation     = ("Science Phase", *)
+End_Group
+
+Group = MissionPhaseIdentifier
+  Auto
+  Optional
+  InputKey        = MissionPhase
+  InputPosition   = (IsisCube, Archive)
+  OutputName      = psa:mission_phase_identifier
+  OutputPosition  = (Product_Observational, Observation_Area, Mission_Area, psa:Mission_Information)
+  Translation     = ("psp", *)
+End_Group
+
+Group = StartOrbitNumber
+  Auto
+  Optional
+  InputKey        = StartOrbitNumber
+  InputPosition   = (IsisCube, Archive)
+  OutputName      = psa:start_orbit_number
+  OutputPosition  = (Product_Observational, Observation_Area, Mission_Area, psa:Mission_Information)
   Translation     = (*, *)
 End_Group
+
 
 Group = SubInstrumentIdentifier
   Auto

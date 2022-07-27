@@ -36,6 +36,7 @@ Group = MissionName
   OutputName      = name
   OutputSiblings  = (type|Mission)
   OutputPosition  = (Product_Observational, Observation_Area, Investigation_Area)
+  Translation     = ("ExoMars 2016", "TRACE GAS ORBITER")
   Translation     = (*, *)
 End_Group
 

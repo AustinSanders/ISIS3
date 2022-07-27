@@ -479,12 +479,20 @@ End_Group
 Group = MissionPhase
   Auto
   Optional
-  InputPosition       = (CaSSIS_Header, DERIVED_HEADER_DATA)
+  InputPosition       = (Identification_Area, )
   InputKey            = MissionPhase
   OutputName          = MissionPhase
   OutputPosition      = (Object, IsisCube, Group, Archive)
   Translation         = (*, *)
 End_Group
+
+Group = StartOrbitNumber
+  Auto
+  Optional
+  InputPosition       = (Mission_Area, psa:Mission_Information)
+  InputKey            = psa:start_orbit_number
+  OutputName          = StartOrbitNumber
+  OutputPosition      = (Object, IsisCube, Group, Archive)
 
 Group = SubInstrumentIdentifier
   Auto

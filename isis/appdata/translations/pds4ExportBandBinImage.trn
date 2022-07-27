@@ -34,7 +34,7 @@ Group = LocalReferenceType
   Translation      = (*, *)
 End_Group
 
-#          <img:Image_Product_Information>
+#          <img:Optical_Filter>
 #            <img:Filter>
 #               <img:filter_name>PANL2</img:filter_name>
 #               <img:filter_id>PANL2</img:filter_name>
@@ -51,7 +51,7 @@ Group = FilterName1
   InputKey         = FilterName
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:filter_name
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -62,7 +62,7 @@ Group = FilterName2
   InputKey         = Name
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:filter_name
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -73,7 +73,7 @@ Group = FilterName3
   InputKey         = FilterId
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:filter_name
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -84,7 +84,7 @@ Group = FilterId1
   InputKey         = FilterId
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:filter_id
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -95,7 +95,7 @@ Group = FilterId2
   InputKey         = FilterName
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:filter_id
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -106,7 +106,7 @@ Group = FilterId3
   InputKey         = Name
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:filter_id
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -116,7 +116,7 @@ Group = FilterNumber1
   InputKey         = OriginalBand
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:filter_number
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -126,7 +126,7 @@ Group = FilterNumber2
   InputKey         = FilterNumber
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:filter_number
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -137,7 +137,7 @@ Group = BandWidth1
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:bandwidth
   OutputAttributes = unit|nm
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -148,7 +148,7 @@ Group = BandWidth2
   InputPosition    = (IsisCube, BandBin)
   OutputName       = img:bandwidth
   OutputAttributes = unit|nm
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -160,7 +160,7 @@ Group = CenterWavelength1
   InputPosition    = (IsisCube,BandBin)
   OutputName       = img:center_filter_wavelength
   OutputAttributes = unit|nm
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group
 
@@ -172,6 +172,6 @@ Group = CenterWavelength2
   InputPosition    = (IsisCube,BandBin)
   OutputName       = img:center_filter_wavelength
   OutputAttributes = unit|nm
-  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Image_Product_Information, img:Filter)
+  OutputPosition   = (Product_Observational, Observation_Area, Discipline_Area, img:Imaging, img:Optical_Filter, img:Filter)
   Translation      = (*, *)
 End_Group

@@ -682,13 +682,14 @@ End_Group
 
 # Export Footprint Coordinates 
 
-Group = Corner1Lattiude
+Group = Corner1Latitude
   Auto
   Optional
   InputKey        = Corner1Latitude
   InputPosition   = (IsisCube, Archive)
-  OutputSiblings =  ("geom:reference_pixel_location|Lower Left Corner")
+  OutputSiblings  = ("geom:reference_pixel_location|Lower Left Corner")
   OutputName      = geom:pixel_latitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept)
   Translation     = (*, *)
 End_Group
@@ -699,16 +700,18 @@ Group = Corner1Longitude
   InputKey        = Corner1Longitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_longitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept)
   Translation     = (*, *)
 End_Group
 
-Group = Corner2Lattiude
+Group = Corner2Latitude
   Auto
   Optional
   InputKey        = Corner2Latitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_latitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, new@geom:Pixel_Intercept2)
   OutputSiblings = ("geom:reference_pixel_location|Lower Right Corner")
   Translation     = (*, *)
@@ -720,16 +723,18 @@ Group = Corner2Longitude
   InputKey        = Corner2Longitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_longitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept2)
   Translation     = (*, *)
 End_Group
 
-Group = Corner3Lattiude
+Group = Corner3Latitude
   Auto
   Optional
   InputKey        = Corner3Latitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_latitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, new@geom:Pixel_Intercept3)
   OutputSiblings  = ("geom:reference_pixel_location|Upper Left Corner")
   Translation     = (*, *)
@@ -741,16 +746,18 @@ Group = Corner3Longitude
   InputKey        = Corner3Longitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_longitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept3)
   Translation     = (*, *)
 End_Group
 
-Group = Corner4Lattiude
+Group = Corner4Latitude
   Auto
   Optional
   InputKey        = Corner4Latitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_latitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, new@geom:Pixel_Intercept4)
   OutputSiblings  = ("geom:reference_pixel_location|Upper Right Corner")
   Translation     = (*, *)
@@ -762,7 +769,68 @@ Group = Corner4Longitude
   InputKey        = Corner4Longitude
   InputPosition   = (IsisCube, Archive)
   OutputName      = geom:pixel_longitude
+  OutputAttribute = unit:deg
   OutputPosition  = (Product_Observational, Observation_Area, Discipline_Area, geom:Geometry, geom:Geometry_Orbiter, geom:Surface_Geometry, geom:Surface_Geometry_Specific, geom:Footprint_Vertices, geom:Pixel_Intercept4)
   Translation     = (*, *)
 End_Group
 
+Group = PrimaryResultSummaryPurpose
+  Auto
+  InputDefault    = None
+  OutputName      = purpose
+  OutputPosition  = (Product_Observational, Observation_Area, Primary_Result_Summary)
+  Translation     = ("Science", *)
+End_Group
+
+Group = PrimaryResultSummaryProcessingLevel
+  Auto
+  InputDefault    = None
+  OutputName      = processing_level
+  OutputPosition  = (Product_Observational, Observation_Area, Primary_Result_Summary)
+  Translation     = ("Derived", *)
+End_Group
+
+Group = PrimaryResultSummaryDescription
+  Auto
+  InputDefault    = None
+  OutputName      = description
+  OutputPosition  = (Product_Observational, Observation_Area, Primary_Result_Summary)
+  Translation     = ("Summary of Results", *)
+End_Group
+
+Group = ScienceFacetsWavelength
+  Auto
+  InputDefault    = None
+  OutputName      = wavelength
+  OutputPosition  = (Product_Observational, Observation_Area, Primary_Result_Summary, Science_Facets)
+  Translation     = ("Near Infrared", *)
+End_Group
+
+Group = ScienceFacetsDomain
+  Auto
+  InputDefault    = None
+  OutputName      = domain
+  OutputPosition  = (Product_Observational, Observation_Area, Primary_Result_Summary, Science_Facets)
+  Translation     = ("Surface", *)
+End_Group
+
+Group = ScienceFacetsDisciplineName
+  Auto
+  InputDefault    = None
+  OutputName      = discipline_name
+  OutputPosition  = (Product_Observational, Observation_Area, Primary_Result_Summary, Science_Facets)
+  Translation     = ("Imaging", *)
+End_Group
+
+Change 3: Add <Primary_Result_Summary> after </Time_Coordinates> in <Observation_Area>
+Add:
+  <Primary_Result_Summary>
+   <purpose>Science</purpose>
+   <processing_level>Derived</processing_level>
+   <description>Summary of Results</description>
+   <Science_Facets>
+    <wavelength_range>Near Infrared</wavelength_range>
+    <domain>Surface</domain>
+    <discipline_name>Imaging</discipline_name>
+   </Science_Facets>
+  </Primary_Result_Summary>
