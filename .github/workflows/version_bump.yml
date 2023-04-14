@@ -1,10 +1,8 @@
 name: versionbump
 on:
-  pull_request:
+  push:
     branches:
       - lts
-    types:
-      - closed
 
 jobs:
   build:
@@ -18,9 +16,4 @@ jobs:
           git config --global user.email 'bot@users.noreply.github.com'
           CURRENTVERSION=$(sed -nr '0,/^{% set version = "\([^"]*\)" %}/s//\1/p' ${{github.workspace}}/recipe/meta.yaml)
           echo $CURRENTVERSION
-          NEWVERSION=`echo $CURRENTVERSION | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.`
-          sed -ir "0,/^{%.*version.*\"\([^\"]*\)\".*/s//{% set version = "${NEWVERSION}" %}/" ${{github.workspace}}/recipe/meta.yaml
-          sed -ir "0,/"${CURRENTVERSION}"/s//"${NEWVERSION}" %}/" ${{github.workspace}}/isis/CMakeLists.txt
-          git add ${{github.workspace}}/isis/CMakeLists.txt ${{github.workspace}}/recipe/meta.yaml
-          git commit -m 'auto bump version'
-          git push
+
