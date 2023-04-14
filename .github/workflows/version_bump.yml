@@ -2,8 +2,7 @@ name: versionbump
 on:
   push:
     branches:
-    - dev
-    - main
+    - lts
 
 jobs:
   build:
