@@ -14,6 +14,6 @@ jobs:
         run: |
           git config --global user.name 'ProjectBot'
           git config --global user.email 'bot@users.noreply.github.com'
-          CURRENTVERSION=$(sed -n '0,/^{% set version = "\([^"]*\)" %}/s//\1/p' ${{github.workspace}}/recipe/meta.yaml)
-          echo $(sed -n '0,/^{% set version = "\([^"]*\)" %}/s//\1/p' ${{github.workspace}}/recipe/meta.yaml)
+          CURRENTVERSION=$(sed -n '0,/^{%\s+set\s+version\s+=\s+"\([^"]*\)"\s+%}/s//\1/p' ${{github.workspace}}/recipe/meta.yaml)
+          echo $(sed -n '0,/^{%\s+set\s+version\s+=\s+"\([^"]*\)"\s+%}/s//\1/p' ${{github.workspace}}/recipe/meta.yaml)
           echo Current: $CURRENTVERSION
