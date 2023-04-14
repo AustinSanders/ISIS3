@@ -18,8 +18,6 @@ jobs:
           CURRENTVERSION=`echo $CURRENTVERSION | awk -F. '/[0-9]+\./{$NF;print}' OFS=.`
           NEWVERSION=`echo $CURRENTVERSION | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.`
           sed -i "0,/^{%.*version.*\"\([^\"]*\)\".*/s//{% set version = "\"${NEWVERSION}"\" %}/" ${{github.workspace}}/recipe/meta.yaml
-          sed -i "0,/"${CURRENTVERSION}"/s//"${NEWVERSION}" %}/" ${{github.workspace}}/isis/CMakeLists.txt
+          sed -i "/s/"${CURRENTVERSION}"/"${NEWVERSION}" %}/" ${{github.workspace}}/isis/CMakeLists.txt
           
           cat ${{github.workspace}}/isis/CMakeLists.txt
-          
-          cat ${{github.workspace}}/recipe/meta.yaml
