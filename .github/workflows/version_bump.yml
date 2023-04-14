@@ -1,8 +1,9 @@
 name: versionbump
 on:
-  pull_request:
+  push:
     branches:
-    - lts
+    - dev
+    - main
 
 jobs:
   build:
