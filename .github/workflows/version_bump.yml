@@ -15,5 +15,3 @@ jobs:
           git config --global user.name 'ProjectBot'
           git config --global user.email 'bot@users.noreply.github.com'
           CURRENTVERSION=$(sed -nr '0,/^{% set version = "\([^"]*\)" %}/s//\1/p' ${{github.workspace}}/recipe/meta.yaml)
-          echo $CURRENTVERSION
-
