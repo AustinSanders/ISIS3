@@ -17,7 +17,8 @@ jobs:
           git config --global user.name 'ProjectBot'
           git config --global user.email 'bot@users.noreply.github.com'
           CURRENTVERSION=$(sed -n '0,/^{% set version = "\([^"]*\)" %}/s//\1/p' ${{github.workspace}}/recipe/meta.yaml)
-          NEWVERSION=`echo $current_version | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.`
+          echo $CURRENTVERSION
+          NEWVERSION=`echo $CURRENTVERSION | awk -F. '/[0-9]+\./{$NF++;print}' OFS=.`
           sed -i "0,/^{%.*version.*\"\([^\"]*\)\".*/s//{% set version = "${NEWVERSION}" %}/" ${{github.workspace}}/recipe/meta.yaml
           sed -i "0,/"$CURRENTVERSION"/s//"${NEWVERSION}" %}/" ${{github.workspace}}/isis/CMakeLists.txt
           git add ${{github.workspace}}/isis/CMakeLists.txt ${{github.workspace}}/recipe/meta.yaml
