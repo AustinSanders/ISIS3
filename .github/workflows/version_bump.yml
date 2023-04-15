@@ -1,8 +1,10 @@
 name: versionbump
 on:
-  push:
+  pull_request:
     branches:
       - lts
+    types:
+      - closed
 
 jobs:
   build:
@@ -20,3 +22,6 @@ jobs:
           sed -i "0,/^{%.*version.*\"\([^\"]*\)\".*/s//{% set version = "\"${NEWVERSION}"\" %}/" ${{github.workspace}}/recipe/meta.yaml
           sed -i "0,/set(VERSION.*/s//set(VERSION \""${NEWVERSION}"\")/" ${{github.workspace}}/isis/CMakeLists.txt          
           cat ${{github.workspace}}/isis/CMakeLists.txt
+          git add ${{github.workspace}}/isis/CMakeLists.txt ${{github.workspace}}/recipe/meta.yaml
+          git commit -m 'auto bump version'
+          git push
